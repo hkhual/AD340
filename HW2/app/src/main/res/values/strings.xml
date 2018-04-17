@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Home</string>
+
+    <string name="myText">Enter a text to send!</string>
+
+    <string name="button1">Send</string>
+
+    <string name="myText2">Received Text message</string>
+</resources>
