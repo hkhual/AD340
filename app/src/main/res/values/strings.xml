@@ -1,22 +1,19 @@
 <resources>
     <string name="app_name">Home</string>
 
-    <string name="myText">Enter a text to send!</string>
-
     <string name="sendButton">Send</string>
-
-
     <string name="movieButton">Movies</string>
 
-
+    <string name="myText">Enter a text to send!</string>
     <string name="myText2">Received Text message</string>
 
 
-
     <string name="title_movies">Movies</string>
-
-
     <string name="year_movies">Year</string>
+
+
+    <string name="movie_image">Movie Image</string>
+    <string name="movie_description">Movie Description</string>
 
 
     <string name="large_text">

@@ -29,6 +29,12 @@
 
         </activity>
 
+        <activity android:name=".Movie"
+            android:label="Movie"
+            android:parentActivityName=".Movies">
+
+        </activity>
+
 
     </application>
 
