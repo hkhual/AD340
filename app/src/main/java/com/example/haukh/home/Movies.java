@@ -112,13 +112,15 @@ public class Movies extends AppCompatActivity {
                                 Toast.makeText(itemView.getContext(), movies[pos][0], Toast.LENGTH_SHORT).show();
 
                                 // showMovie(pos);
-
                                 Intent intent = new Intent(Movies.this, Movie.class);
-
 
                                 //Create the bundle
                                 Bundle bundle = new Bundle();
-                                bundle.putString("movie", movies[pos][4]);
+
+
+                                bundle.putString("movieTitle", movies[pos][0]);
+                                bundle.putString("movieDescription", movies[pos][4]);
+
 
                                 //Add the bundle to the intent
                                 intent.putExtras(bundle);

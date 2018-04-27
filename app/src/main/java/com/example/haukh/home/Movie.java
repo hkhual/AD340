@@ -34,11 +34,18 @@ public class Movie extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
 
         //Extract the data
-        String moviesDescription = bundle.getString("movie");
+        String movieTitle = bundle.getString("movieTitle");
+
+        String moviesDescription = bundle.getString("movieDescription");
+
 
         TextView textDescription = (TextView) findViewById(R.id.movie_descrption);
 
+        TextView textTitle = (TextView) findViewById(R.id.movieListTitle);
+
        textDescription.setText(moviesDescription);
+
+       textTitle.setText(movieTitle);
 
 
     }

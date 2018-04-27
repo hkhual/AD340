@@ -9,42 +9,45 @@
     android:layout_height="match_parent">
 
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <android.support.design.widget.CollapsingToolbarLayout
-                android:id="@+id/toolbar_layout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fitsSystemWindows="true"
-                app:contentScrim="?attr/colorPrimary"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:toolbarId="@+id/toolbar"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="154dp">
-
-            </android.support.design.widget.CollapsingToolbarLayout>
-
             <ImageView
                 android:id="@+id/movie_list"
-                android:layout_width="219dp"
-                android:layout_height="150dp"
+                android:layout_width="177dp"
+                android:layout_height="118dp"
                 android:contentDescription="@string/movie_image"
                 app:srcCompat="@android:color/background_dark" />
 
             <TextView
+                android:id="@+id/movieListTitle"
+                android:layout_width="240dp"
+                android:layout_height="48dp"
+                android:text="@string/movie_list_title"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
                 android:id="@+id/movie_descrption"
                 android:layout_width="match_parent"
-                android:layout_height="359dp"
-                android:text="@string/movie_description" />
-
+                android:layout_height="371dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:text="@string/movie_description"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.523"
+                app:layout_constraintStart_toStartOf="parent" />
         </LinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
 </android.support.constraint.ConstraintLayout>

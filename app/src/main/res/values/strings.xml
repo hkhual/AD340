@@ -16,6 +16,10 @@
     <string name="movie_description">Movie Description</string>
 
 
+
+    <string name ="movie_list_title">Movie Title</string>
+
+
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
