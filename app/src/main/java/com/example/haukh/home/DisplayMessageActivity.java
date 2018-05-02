@@ -3,6 +3,7 @@ package com.example.haukh.home;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -14,6 +15,16 @@ public class DisplayMessageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_message);
+
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.receive_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Receive Message");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+
+
 
         //Get the Intent that started this activity and extract the string
         Intent intent = getIntent();

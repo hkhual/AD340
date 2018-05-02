@@ -61,6 +61,14 @@ public class Movies extends AppCompatActivity {
         //tSupportActionBar(toolbar);
         //tSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.movies_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Movies");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);

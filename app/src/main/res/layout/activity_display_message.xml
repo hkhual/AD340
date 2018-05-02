@@ -7,7 +7,7 @@
     tools:context=".DisplayMessageActivity">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/recieve_toolbar"
+        android:id="@+id/receive_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#1053f2"
@@ -29,7 +29,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recieve_toolbar"
+        app:layout_constraintTop_toBottomOf="@+id/receive_toolbar"
         app:layout_constraintVertical_bias="0.137" />
 
     <TextView

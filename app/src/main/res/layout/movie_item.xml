@@ -9,7 +9,7 @@
 
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar4"
+        android:id="@+id/movie_list_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#1053f2"
@@ -54,7 +54,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar4"
+        app:layout_constraintTop_toBottomOf="@+id/movie_list_toolbar"
         app:srcCompat="@android:color/background_dark" />
 
 </android.support.constraint.ConstraintLayout>

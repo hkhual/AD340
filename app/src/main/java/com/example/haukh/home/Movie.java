@@ -24,6 +24,11 @@ public class Movie extends AppCompatActivity {
 //        setSupportActionBar(toolbar);
 //        getSupportActionBar().setTitle("Movie");
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.movie_list_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Movie List");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
 
 
