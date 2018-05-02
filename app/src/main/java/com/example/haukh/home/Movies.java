@@ -1,5 +1,7 @@
 package com.example.haukh.home;
 
+import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,10 +10,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
+import org.w3c.dom.Text;
+
 
 public class Movies extends AppCompatActivity {
 
@@ -19,6 +24,8 @@ public class Movies extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+
+
 
     String[][] movies = {
             {"Night of the Comet","1984","","http://collider.com/wp-content/uploads/2016/10/night-of-comet.jpg","What would kids in the 1980s do if the apocalypse blew through the world without them noticing? Hang out at the mall, but of course. That’s the set-up for this very funny, quite dated horror-comedy, which begins when a quartet of adolescents lock themselves inside a projection booth at the mall’s multiplex. This somehow allows them to live through an extinction level event of some sort, which has also left roaming bands of murderous mutants. Catherine Mary Stewart of the equally inexplicable Weekend at Bernie’s leads the film, but it’s a movie of mood more than substance ultimately. Does the wealth-fueled naiveté of the average white teenager survive in a vacuum? Does it go away when they are being hunted for sustenance? It’s an interesting to watch on these terms and when the zombies show up, director Thom Eberhardt adds menace and a tight feel for suspense to the action sequences. And if we’re being honest, it belongs on this list for its soundtrack alone. The rest of this is just whip cream and cherries. – Chris Cabin"},
@@ -51,7 +58,7 @@ public class Movies extends AppCompatActivity {
         setContentView(R.layout.list_layout);
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
-       //oolbar toolbar = findViewById(R.id.toolbar);
+       //Toolbar toolbar = findViewById(R.id.toolbar);
         //tSupportActionBar(toolbar);
         //tSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -69,7 +76,6 @@ public class Movies extends AppCompatActivity {
     }
 
 
-
             public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 private String[][] mDataset;
 
@@ -80,17 +86,48 @@ public class Movies extends AppCompatActivity {
                     // each data item is just a string in this case
                     public TextView mTitle;
                     public TextView mYear;
+
+                    public ImageView movieImage;
+                    public TextView movieDescription;
+
+
+
+
                     public ViewHolder(View v) {
 
                         super(v);
 
                         mTitle = (TextView)v.findViewById(R.id.movie_title);
                         mYear = (TextView)v.findViewById(R.id.movie_year);
+
+
+
+                        //movieImage =(ImageView) v.findViewById(R.id.movie_list);
+                        //movieDescription = (TextView) v.findViewById(R.id.movie_descrption);
+
+
                         v.setOnClickListener(new View.OnClickListener() {
                             @Override public void onClick(View v) {
                                 int pos = getAdapterPosition();
                                 Toast.makeText(itemView.getContext(), movies[pos][0], Toast.LENGTH_SHORT).show();
-                              //  showMovie(pos);
+
+                                // showMovie(pos);
+                                Intent intent = new Intent(Movies.this, Movie.class);
+
+                                //Create the bundle
+                                Bundle bundle = new Bundle();
+
+
+                                bundle.putString("movieTitle", movies[pos][0]);
+                                bundle.putString("movieDescription", movies[pos][4]);
+
+
+                                //Add the bundle to the intent
+                                intent.putExtras(bundle);
+
+                                startActivity(intent);
+
+
                             }
                         });
 
@@ -121,6 +158,8 @@ public class Movies extends AppCompatActivity {
                     holder.mTitle.setText(mDataset[position][0]);
                     holder.mYear.setText(mDataset[position][1]);
 
+                   // holder.movieImage.setImageURI(mDataset[position][3]);
+                  //  holder.movieDescription.setText(mDataset[position][4]);
 
                 }
 
