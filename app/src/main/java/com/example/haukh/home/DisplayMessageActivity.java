@@ -21,7 +21,7 @@ public class DisplayMessageActivity extends AppCompatActivity {
         String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
 
         //Capture the layout's TextView and set the string as its text
-        TextView textView = findViewById(R.id.movie_descrption);
+        TextView textView = findViewById(R.id.textRecieve);
 
         textView.setText(message);
 
