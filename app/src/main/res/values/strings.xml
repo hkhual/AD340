@@ -11,11 +11,11 @@
     <string name="toast3Button">Toast 3</string>
 
 
-
-
     <string name="myText">Enter a text to send!</string>
     <string name="myText2">Received Text message</string>
     <string name="displayMessage">Message Activity</string>
+    <string name="type_Message">Text Message</string>
+    <string name="saved_Message">Saved Message</string>
 
 
     <string name="title_movies">Movies</string>
@@ -29,16 +29,15 @@
     <string name="movie_list_title">Movie Title</string>
 
 
-
     <string name="about">About</string>
     <string name="movies">Movies</string>
 
+    <string name="about_me">Hau Khual</string>
     <string name="about_app">
-        "About App\n\n"
+        "About App AD340\n\n"
         "This is an app I have designed for my AD340 Mobile Development class."
         "It is a very simple app."
     </string>
-
 
 
 
@@ -48,6 +47,16 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_login">Sign in</string>
+
+
+    <string name="popup_window">Type a Message</string>
+    <string name="popup_enter">Enter</string>
+    <string name="popup_description">
+        "Enter a text and click Enter\n"
+        "to access the home page."
+
+    </string>
 
 
 </resources>

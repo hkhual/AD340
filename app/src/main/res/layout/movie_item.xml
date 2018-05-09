@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/MovieList"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+
+<android.support.constraint.ConstraintLayout
+    android:id="@+id/MovieList"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
 
     <android.support.v7.widget.Toolbar
@@ -20,33 +25,38 @@
 
     <TextView
         android:id="@+id/movieListTitle"
-        android:layout_width="353dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_width="208dp"
+        android:layout_height="41dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:text="@string/movie_list_title"
         android:textAlignment="center"
-        android:textSize="24sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.583"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/movie_list" />
 
     <TextView
         android:id="@+id/movie_descrption"
-        android:layout_width="match_parent"
-        android:layout_height="315dp"
+        android:layout_width="314dp"
+        android:layout_height="333dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:text="@string/movie_description"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.523"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/movieListTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/movieListTitle"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/movie_list"
-        android:layout_width="177dp"
-        android:layout_height="118dp"
+        android:layout_width="127dp"
+        android:layout_height="80dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
@@ -58,3 +68,5 @@
         app:srcCompat="@android:color/background_dark" />
 
 </android.support.constraint.ConstraintLayout>
+
+</ScrollView>

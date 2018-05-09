@@ -8,20 +8,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
-
-
-
-
-    <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
 
         <activity
             android:name=".DisplayMessageActivity"
@@ -32,26 +25,23 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.haukh.home.MainActivity" />
-
         </activity>
 
         <activity
             android:name=".Movies"
             android:label="@string/title_movies"
-            android:parentActivityName=".MainActivity">
-        </activity>
+            android:parentActivityName=".MainActivity" />
 
         <activity
             android:name=".Movie"
             android:label="Movie"
-            android:parentActivityName=".Movies">
-        </activity>
+            android:parentActivityName=".Movies" />
 
         <activity
             android:name=".AboutApp"
-            android:parentActivityName=".MainActivity">
+            android:label="About"
+            android:parentActivityName=".MainActivity" />
 
-        </activity>
     </application>
 
 </manifest>

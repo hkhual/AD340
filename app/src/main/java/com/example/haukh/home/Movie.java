@@ -20,9 +20,6 @@ public class Movie extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.movie_item);
 
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//        getSupportActionBar().setTitle("Movie");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.movie_list_toolbar);
         setSupportActionBar(toolbar);

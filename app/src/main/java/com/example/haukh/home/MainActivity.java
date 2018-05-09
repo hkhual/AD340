@@ -1,7 +1,8 @@
 package com.example.haukh.home;
 
+import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
+import android.content.SharedPreferences;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -23,16 +24,32 @@ public class MainActivity extends AppCompatActivity
     public static final String EXTRA_MESSAGE = "com.example.haukh.home";
 
 
+    public final String myPreference = "my";
+    SharedPreferences preferences;
+     public EditText textField;
+    public Context context;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //this.setTitle("Application");
 
-
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        //Display the toolbar by calling its id name
+        Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+
+
+
+           //Set up Shared Preference
+           preferences = getSharedPreferences(getString(R.string.saved_Message), Context.MODE_PRIVATE);
+           textField = (EditText) findViewById(R.id.editText);
+
+           String message = "";
+           String savedText = preferences.getString(getString(R.string.type_Message), message);
+           textField.setText(savedText);
+
 
 
 
@@ -47,25 +64,53 @@ public class MainActivity extends AppCompatActivity
 
 
 
+    }
+
+    private void popWindow() {
+
+        Intent intent = new Intent(this, Popup.class);
+        startActivity(intent);
 
 
     }
 
 
+
+
+
     //Called when  the user taps the Send button
     public void sendMessage(View view){
 
-        //Do something in response to button
-        Intent intent = new Intent(this, DisplayMessageActivity.class);
+        textField = (EditText)findViewById(R.id.editText);
+        String message = textField.getText().toString();
 
-        EditText editText = (EditText)findViewById(R.id.editText);
+        if(isValidate(message)) {
+            //Set up Shared Preference
+            context = getApplication();
+            preferences = getSharedPreferences(getString(R.string.saved_Message), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            // String key = "Data";
+            editor.putString(getString(R.string.type_Message), message);
+            editor.apply();
 
-        String message = editText.getText().toString();
 
-        intent.putExtra(EXTRA_MESSAGE, message);
+            //Do something in response to button
+            Intent intent = new Intent(this, DisplayMessageActivity.class);
 
-         startActivity(intent);
+            intent.putExtra(EXTRA_MESSAGE, message);
 
+            startActivity(intent);
+
+        }   else{
+            Toast.makeText(getApplicationContext(), "Is not a valid input", Toast.LENGTH_SHORT).show();
+            }
+
+    }
+
+
+    public boolean isValidate(String str){
+
+            return !str.isEmpty();
 
     }
 

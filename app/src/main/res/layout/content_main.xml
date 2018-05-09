@@ -28,6 +28,7 @@
             app:layout_constraintStart_toEndOf="@+id/editText"
             app:layout_constraintTop_toTopOf="parent" />
 
+
         <EditText
             android:id="@+id/editText"
             android:layout_width="207dp"
@@ -36,9 +37,12 @@
             android:layout_marginTop="68dp"
             android:ems="10"
             android:hint="@string/input"
-            android:inputType="textPersonName"
+            android:inputType="textShortMessage|textPersonName"
+            android:maxLength="20"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+
 
         <Button
             android:id="@+id/movie"
