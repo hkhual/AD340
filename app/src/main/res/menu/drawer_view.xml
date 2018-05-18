@@ -5,6 +5,7 @@ tools:showIn="navigation_view">
 
 
 
+
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/aboutMe"
@@ -13,8 +14,20 @@ tools:showIn="navigation_view">
         <item
             android:id="@+id/Movies"
             android:title="@string/movies" />
+
+        <item
+            android:id="@+id/myLiveCam"
+            android:title="LiveCam" />
     </group>
 
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/settings"
+                android:title="Settings" />
+
+        </menu>
+    </item>
     <!--
 <group android:checkableBehavior="single">
     <item

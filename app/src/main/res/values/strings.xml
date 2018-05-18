@@ -20,7 +20,7 @@
 
     <string name="title_movies">Movies</string>
     <string name="year_movies">Year</string>
-
+    <string name="movie_directors">Director</string>
 
     <string name="movie_image">Movie Image</string>
     <string name="movie_description">Movie Description</string>
@@ -50,13 +50,8 @@
     <string name="title_activity_login">Sign in</string>
 
 
-    <string name="popup_window">Type a Message</string>
-    <string name="popup_enter">Enter</string>
-    <string name="popup_description">
-        "Enter a text and click Enter\n"
-        "to access the home page."
+    <string name="liveCam">LiveCam</string>
 
-    </string>
 
 
 </resources>

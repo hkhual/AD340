@@ -63,18 +63,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-
     }
-
-    private void popWindow() {
-
-        Intent intent = new Intent(this, Popup.class);
-        startActivity(intent);
-
-
-    }
-
-
 
 
 
@@ -109,7 +98,6 @@ public class MainActivity extends AppCompatActivity
 
 
     public boolean isValidate(String str){
-
             return !str.isEmpty();
 
     }
@@ -161,31 +149,42 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+    public void liveCamera(View view){
 
+        //Display a live camera layout
+        Intent intent = new Intent(this, LiveCam.class);
+        startActivity(intent);
+
+
+    }
+
+    //------------------------------------------------------
     @Override
     protected void onStart(){
+        Log.d(EXTRA_MESSAGE, "onStart started");
         super.onStart();
 
-        Log.d(EXTRA_MESSAGE, "onStart started");
     }
 
     @Override
     protected void onPause(){
-        super.onPause();
         Log.d(EXTRA_MESSAGE, "onPause started");
+        super.onPause();
+
     }
 
     @Override
     protected void onStop(){
-        super.onStop();
         Log.d(EXTRA_MESSAGE, "onStop started");
+        super.onStop();
 
     }
 
     @Override
     protected void onDestroy(){
-        super.onDestroy();
         Log.d(EXTRA_MESSAGE, "onDestroy started");
+        super.onDestroy();
+
     }
 
     @Override
@@ -208,8 +207,7 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    @Override
-    //Menu method
+    @Override //Menu method
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
@@ -229,6 +227,8 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(getApplicationContext(), "You clicked a setting",
                     Toast.LENGTH_SHORT).show();
             return true;
+        }else if(id==R.id.action_about){
+            aboutAppInfo();
         }
 
         return super.onOptionsItemSelected(item);
@@ -252,6 +252,11 @@ public class MainActivity extends AppCompatActivity
              Intent intent = new Intent(this, Movies.class);
              startActivity(intent);
         }
+
+        else if(id==R.id.myLiveCam){
+            Intent cam = new Intent(this, LiveCam.class);
+            startActivity(cam);
+         }
 
 
         DrawerLayout drawer = (DrawerLayout)findViewById(R.id.drawer_layout);

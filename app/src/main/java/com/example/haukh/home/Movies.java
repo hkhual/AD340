@@ -8,6 +8,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -57,11 +60,6 @@ public class Movies extends AppCompatActivity {
         setContentView(R.layout.list_layout);
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
-       //Toolbar toolbar = findViewById(R.id.toolbar);
-        //tSupportActionBar(toolbar);
-        //tSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.movies_toolbar);
         setSupportActionBar(toolbar);
@@ -80,10 +78,43 @@ public class Movies extends AppCompatActivity {
         // specify an adapter (see also next example)
         mAdapter = new MyAdapter(movies);
         mRecyclerView.setAdapter(mAdapter);
+
+
     }
 
 
-            public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+    @Override //Menu setting method
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            Toast.makeText(getApplicationContext(), "You clicked a setting",
+                    Toast.LENGTH_SHORT).show();
+            return true;
+        }else if(id==R.id.action_about){
+            Intent intent = new Intent(this, AboutApp.class);
+            startActivity(intent);
+        }
+
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
+    public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 private String[][] mDataset;
 
                 // Provide a reference to the views for each data item
@@ -98,15 +129,12 @@ public class Movies extends AppCompatActivity {
                     public TextView movieDescription;
 
 
-
-
                     public ViewHolder(View v) {
 
                         super(v);
 
                         mTitle = (TextView)v.findViewById(R.id.movie_title);
                         mYear = (TextView)v.findViewById(R.id.movie_year);
-
 
 
                         //movieImage =(ImageView) v.findViewById(R.id.movie_list);
@@ -126,6 +154,8 @@ public class Movies extends AppCompatActivity {
 
 
                                 bundle.putString("movieTitle", movies[pos][0]);
+                                bundle.putString("movieYear", movies[pos][1]);
+                                bundle.putString("movieDirector",movies[pos][2]);
                                 bundle.putString("movieDescription", movies[pos][4]);
 
 
@@ -175,6 +205,7 @@ public class Movies extends AppCompatActivity {
                 public int getItemCount() {
                     return mDataset.length;
                 }
+
             }
 
 }

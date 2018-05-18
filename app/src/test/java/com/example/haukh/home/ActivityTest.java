@@ -10,7 +10,7 @@ import com.example.haukh.home.MainActivity;
 public class ActivityTest {
 
 
-    // private final Popup mPopup;
+    // private final LiveCam mPopup;
     private MainActivity mMain = new MainActivity();
 
 
@@ -27,16 +27,6 @@ public class ActivityTest {
 
 
     }
-
-
-
-
-
-
-
-
-
-
 
 
 

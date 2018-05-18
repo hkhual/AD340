@@ -19,9 +19,10 @@
         android:layout_height="wrap_content"
         android:background="#1053f2"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <TextView
         android:id="@+id/movieListTitle"
@@ -41,8 +42,8 @@
 
     <TextView
         android:id="@+id/movie_descrption"
-        android:layout_width="314dp"
-        android:layout_height="333dp"
+        android:layout_width="339dp"
+        android:layout_height="347dp"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -66,6 +67,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/movie_list_toolbar"
         app:srcCompat="@android:color/background_dark" />
+
+    <TextView
+        android:id="@+id/movie_year"
+        android:layout_width="72dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="12dp"
+        android:text="@string/year_movies"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.118"
+        app:layout_constraintStart_toEndOf="@+id/movie_list"
+        app:layout_constraintTop_toBottomOf="@+id/movie_list_toolbar" />
+
+    <TextView
+        android:id="@+id/movie_director"
+        android:layout_width="185dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/movie_directors"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.783"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movie_year" />
 
 </android.support.constraint.ConstraintLayout>
 
