@@ -1,7 +1,6 @@
 package com.example.haukh.home;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,16 +8,12 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 
 public class Movies extends AppCompatActivity {
@@ -181,7 +176,7 @@ public class Movies extends AppCompatActivity {
                 public MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
                     // create a new view
                     View v = (View) LayoutInflater.from(parent.getContext())
-                            .inflate(R.layout.recyclerview_item, parent, false);
+                            .inflate(R.layout.movies_lists, parent, false);
 
                     MyAdapter.ViewHolder vh = new MyAdapter.ViewHolder(v);
                     return vh;

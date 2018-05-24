@@ -149,15 +149,29 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+    //Run the liveCam class when the
+    // user click the livecam button
     public void liveCamera(View view){
 
         //Display a live camera layout
-        Intent intent = new Intent(this, LiveCam.class);
+        Intent intent = new Intent(this, WebCam.class);
         startActivity(intent);
-
 
     }
 
+
+    /*public void locationMap(View v){
+
+        Intent intent = new Intent(this, LocationMap.class);
+        startActivity(intent);
+
+    }   */
+
+
+    public void locationMap(View v){
+        Intent intent = new Intent(this, MapsActivity.class);
+        startActivity(intent);
+    }
     //------------------------------------------------------
     @Override
     protected void onStart(){
@@ -254,8 +268,12 @@ public class MainActivity extends AppCompatActivity
         }
 
         else if(id==R.id.myLiveCam){
-            Intent cam = new Intent(this, LiveCam.class);
+            Intent cam = new Intent(this, WebCam.class);
             startActivity(cam);
+         }
+         else if(id==R.id.myLocationMap){
+            Intent map = new Intent(this, MapsActivity.class);
+            startActivity(map);
          }
 
 

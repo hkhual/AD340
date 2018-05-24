@@ -71,9 +71,6 @@ public class DisplayMessageActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "You clicked a setting",
                     Toast.LENGTH_SHORT).show();
             return true;
-        }else if(id==R.id.action_about){
-            Intent intent = new Intent(this, AboutApp.class);
-            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);

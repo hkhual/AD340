@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LiveCam">
+    tools:context=".WebCam">
 
 
     <android.support.v7.widget.Toolbar
@@ -12,6 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#1053f2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/AppTheme.PopupOverlay" />
 
@@ -19,10 +21,8 @@
     <!-- A RecyclerView with some commonly used attributes -->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/my_Cam_recycler_view"
-        android:layout_width="355dp"
-        android:layout_height="506dp"
-        android:layout_marginBottom="32dp"
-        android:layout_marginStart="16dp"
+        android:layout_width="385dp"
+        android:layout_height="508dp"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

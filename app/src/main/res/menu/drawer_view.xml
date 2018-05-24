@@ -18,6 +18,10 @@ tools:showIn="navigation_view">
         <item
             android:id="@+id/myLiveCam"
             android:title="LiveCam" />
+
+        <item
+            android:id="@+id/myLocationMap"
+            android:title="Location"/>
     </group>
 
     <item android:title="Communicate">

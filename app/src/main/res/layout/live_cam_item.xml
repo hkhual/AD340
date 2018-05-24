@@ -5,29 +5,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
-    <android.support.constraint.ConstraintLayout
+    <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="223dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/live_Cam_Image"
-            android:layout_width="291dp"
-            android:layout_height="125dp"
+            android:layout_width="271dp"
+            android:layout_height="128dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.46"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/side_nav_bar" />
+            app:srcCompat="@drawable/side_nav_bar"
+            tools:layout_editor_absoluteY="96dp" />
 
         <TextView
             android:id="@+id/cam_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="187dp"
+            android:layout_height="45dp"
             android:layout_marginBottom="64dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
@@ -40,12 +41,12 @@
             app:layout_constraintHorizontal_bias="0.103"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/live_Cam_Image"
-            app:layout_constraintVertical_bias="0.418" />
+            app:layout_constraintVertical_bias="0.122" />
 
         <TextView
             android:id="@+id/cam_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="175dp"
+            android:layout_height="33dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="248dp"
             android:layout_marginStart="8dp"
@@ -55,10 +56,12 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.444"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cam_description" />
+            app:layout_constraintTop_toBottomOf="@+id/cam_description"
+            app:layout_constraintVertical_bias="0.137" />
 
-    </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
 
 </android.support.v7.widget.CardView>
 
