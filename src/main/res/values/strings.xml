@@ -1,0 +1,58 @@
+<resources>
+    <string name="app_name">Home</string>
+
+    <string name="input">type a message</string>
+    <string name="sendButton">Send</string>
+
+
+    <string name="movieButton">Movies</string>
+    <string name="toast1Button">Toast 1</string>
+    <string name="toast2Button">Toast 2</string>
+    <string name="toast3Button">Toast 3</string>
+
+
+    <string name="myText">Enter a text to send!</string>
+    <string name="myText2">Received Text message</string>
+    <string name="displayMessage">Message Activity</string>
+    <string name="type_Message">Text Message</string>
+    <string name="saved_Message">Saved Message</string>
+
+
+    <string name="title_movies">Movies</string>
+    <string name="year_movies">Year</string>
+    <string name="movie_directors">Director</string>
+
+    <string name="movie_image">Movie Image</string>
+    <string name="movie_description">Movie Description</string>
+
+
+    <string name="movie_list_title">Movie Title</string>
+
+
+    <string name="about">About</string>
+    <string name="movies">Movies</string>
+
+    <string name="about_me">Hau Khual</string>
+    <string name="about_app">
+        "About App AD340\n\n"
+        "This is an app I have designed for my AD340 Mobile Development class."
+        "It is a very simple app."
+    </string>
+
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Hau Khual - AD340</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_login">Sign in</string>
+
+
+    <string name="liveCam">LiveCam</string>
+    <string name="LocationMap">Location</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="cam_description">CamDescription</string>
+
+
+</resources>
