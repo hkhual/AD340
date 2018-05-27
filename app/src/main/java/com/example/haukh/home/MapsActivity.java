@@ -2,14 +2,11 @@ package com.example.haukh.home;
 
 import android.Manifest;
 import android.app.ProgressDialog;
-import android.content.Context;
+
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
+
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,7 +14,6 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.Window;
@@ -44,32 +40,20 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
+
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
-import java.util.Locale;
+
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback,
         GoogleMap.OnMarkerClickListener, GoogleMap.OnInfoWindowClickListener {
 
     GoogleMap mMap;
-    GoogleMap mGoogleMap;
-    LocationManager locationManager;
-    LocationListener locationListener;
-    RecyclerView camView;
     List<WebCamHelper> myWebcamList;
-    RequestQueue requestQueue;
-    ArrayList<Marker> markers;
-    Location lastLocation;
-    Marker currLocMarker;
-    Geocoder geocoder;
-    Marker currMarker;
+
+
     String url = "https://web6.seattle.gov/Travelers/api/Map/Data?zoomId=13&type=2";
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 2;
-    //boolean not_first_time_showing_info_window;
-    List<Address> geocoded;
-    private Hashtable<String, String> allMarkers = new Hashtable<>();
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -106,10 +90,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
 
-        // Add a marker in BC and move the camera
-        LatLng bc = new LatLng(53.7267, -127.6476);
-        mMap.addMarker(new MarkerOptions().position(bc).title("BC"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(bc));
+
 
         locationPermitted();
         mMap.setOnMyLocationButtonClickListener(onMyLocationButtonClickListener);
@@ -157,16 +138,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     JSONArray array = response.getJSONArray("Features");
                     for (int i = 0; i < array.length(); i++) {
                         JSONObject camObj = array.getJSONObject(i);
-                        String camLabel = "";
-                        String camImage = "";
-                        String camOwnership = "";
-                        String camID = "";
 
-                      WebCamHelper camera = new  WebCamHelper(camLabel, camImage, camOwnership);
+                        JSONArray camLocation = camObj.getJSONArray("PointCoordinate");
 
-                       JSONArray camLocation = camObj.getJSONArray("PointCoordinate");
-
-                       myHelper.setLatitude(camLocation.getDouble(0));
+                        myHelper.setLatitude(camLocation.getDouble(0));
                         myHelper.setLongitude(camLocation.getDouble(1));
 
 
@@ -241,11 +216,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void showDefaultLocation() {
-    LatLng Seattle = new LatLng(47.692830562, -122.333);
+        LatLng Seattle = new LatLng(47.692830562, -122.333);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(Seattle));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(17.0f));
 
-}
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
@@ -259,7 +234,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 } else {
                     showDefaultLocation();
                 }
-                return;
+                //  return;
             }
 
         }
@@ -293,23 +268,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
             };
 
-
-
-//--------------------------------------------
-    public class AddressFinder {
-        private Context context;
-
-        public AddressFinder(Context context) {
-            this.context = context;
-        }
-
-        public List<Address> getFromLocation(Location location) throws IOException {
-            Geocoder geocoder = new Geocoder(context, Locale.getDefault());
-            return geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
-
-
-        }
-    }
 
 }
 
