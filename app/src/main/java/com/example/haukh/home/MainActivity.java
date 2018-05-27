@@ -40,8 +40,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
-
-
            //Set up Shared Preference
            preferences = getSharedPreferences(getString(R.string.saved_Message), Context.MODE_PRIVATE);
            textField = (EditText) findViewById(R.id.editText);

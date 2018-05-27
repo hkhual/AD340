@@ -1,18 +1,27 @@
 package com.example.haukh.home;
 
 import android.Manifest;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.pm.PackageManager;
-import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
+
+import android.util.Log;
+import android.view.Window;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -20,97 +29,63 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationAvailability;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.places.GeoDataClient;
-import com.google.android.gms.location.places.PlaceDetectionClient;
-import com.google.android.gms.location.places.Places;
-import com.google.android.gms.location.LocationListener;
-
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Locale;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
-, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
-GoogleMap.OnMarkerClickListener, LocationListener{
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback,
+        GoogleMap.OnMarkerClickListener, GoogleMap.OnInfoWindowClickListener {
 
-    private GoogleMap mMap;
+    GoogleMap mMap;
+    GoogleMap mGoogleMap;
+    LocationManager locationManager;
+    LocationListener locationListener;
+    RecyclerView camView;
+    List<WebCamHelper> myWebcamList;
+    RequestQueue requestQueue;
+    ArrayList<Marker> markers;
+    Location lastLocation;
+    Marker currLocMarker;
+    Geocoder geocoder;
+    Marker currMarker;
+    String url = "https://web6.seattle.gov/Travelers/api/Map/Data?zoomId=13&type=2";
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 2;
+    //boolean not_first_time_showing_info_window;
+    List<Address> geocoded;
+    private Hashtable<String, String> allMarkers = new Hashtable<>();
 
-    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
-    private Location mLastLocation;
 
-    private Hashtable<String, String> markers = new Hashtable<>();
-
-    private GeoDataClient mGeoDataClient;
-    private PlaceDetectionClient mPlaceDetectionClient;
-    private FusedLocationProviderClient mFusedLocationProviderClient;
-
-    private GoogleApiClient mGoogleApiClient;
-
-
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         setContentView(R.layout.activity_maps);
 
 
-        //Display the toolbar by calling its id name
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.map_toolbar);
-        //setSupportActionBar(myToolbar);
-        myToolbar.setTitle("Google Map");
-
-
-
-
-        // Toolbar toolbar = (Toolbar) findViewById(R.id.about_toolbar);
-        // setSupportActionBar(toolbar);
-        // getSupportActionBar().setTitle("About");
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
-
-
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-
-
-
-
-        //Instantiates the mGoogleApiClient filed if it's null.
-        if(mGoogleApiClient == null){
-            mGoogleApiClient = new GoogleApiClient.Builder(this)
-                    .addConnectionCallbacks(this)
-                    .addOnConnectionFailedListener(this)
-                    .addApi(LocationServices.API)
-                    .build();
-        }
-
-
-
-
-
     }
-
 
     /**
      * Manipulates the map once available.
@@ -125,240 +100,220 @@ GoogleMap.OnMarkerClickListener, LocationListener{
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        mMap.getUiSettings().setZoomGesturesEnabled(true);
+        myWebcamList = new ArrayList<>();
+
+        myWebcamList = parseJson();
+
+
+
+        // Add a marker in BC and move the camera
+        LatLng bc = new LatLng(53.7267, -127.6476);
+        mMap.addMarker(new MarkerOptions().position(bc).title("BC"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(bc));
+
+        locationPermitted();
+        mMap.setOnMyLocationButtonClickListener(onMyLocationButtonClickListener);
+        mMap.setOnMyLocationClickListener(onMyLocationClickListener);
+
+
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.setMinZoomPreference(6);
+
         mMap.setOnMarkerClickListener(this);
 
-
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(47.6, -122.33);
-        LatLng cam1 = new LatLng(47, -123.3);
-
-
-       // mMap.addMarker(new MarkerOptions().position(sydney).title("Seattle"));
-        mMap.addMarker(new MarkerOptions().position(cam1));
-        mMap.moveCamera((CameraUpdateFactory.newLatLng(cam1)));
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-
-        //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cam1, 12));
-       // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney,12));
-
-
-        getJsonContent();
-    }
-
-
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
-        setUpMap();
-
+        // Set a listener for info window events.
+        mMap.setOnInfoWindowClickListener(this);
 
 
     }
 
     @Override
-    public void onConnectionSuspended(int i) {
-
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-    }
-
-    @Override
-    public void onLocationChanged(Location location) {
+    public void onInfoWindowClick(Marker marker) {
+        Toast.makeText(this, "Info window clicked",
+                Toast.LENGTH_SHORT).show();
+        marker.getTag();
+        marker.getTitle();
+        marker.getId();
 
     }
 
     @Override
     public boolean onMarkerClick(Marker marker) {
+        Log.d("MARKERCLICK", "value: ");
         return false;
     }
 
+    public List<WebCamHelper> parseJson() {
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Getting Things Ready..");
+        progressDialog.show();
 
-    @Override
-    protected void onStart(){
-        super.onStart();
-        //Initiates a background connection of the
-        // client to Google Play Services.
-        mGoogleApiClient.connect();
-    }
+        final WebCamHelper myHelper = new WebCamHelper();
 
-    @Override
-    protected void onStop(){
-        super.onStop();
-        //Closes the connection to Google Play
-        //Services if the client is not null and is connected.
-        if(mGoogleApiClient != null && mGoogleApiClient.isConnected()){
-            mGoogleApiClient.disconnect();
-        }
-    }
-
-
-
-    //Request permission from the use to use
-    //the phone GPS Location
-    private void setUpMap() {
-        if (ActivityCompat.checkSelfPermission(this,
-                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]
-                    {android.Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
-            return;
-        }
-
-        // setMyLocationEnabled enables the my-location layer
-        // which draws a light blue dot on the user’s location.
-        // It also adds a button to the map that, when tapped,
-        // centers the map on the user’s location.
-        mMap.setMyLocationEnabled(true);
-
-
-        // getLocationAvailability determines
-        // the availability of location data on the device.
-        LocationAvailability locationAvailability =
-                LocationServices.FusedLocationApi.getLocationAvailability(mGoogleApiClient);
-        if (null != locationAvailability && locationAvailability.isLocationAvailable()) {
-            // getLastLocation gives you the most recent location currently available
-            mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-            // If you were able to retrieve the the most recent location, then move the camera to the user’s current location.
-            if (mLastLocation != null) {
-                LatLng currentLocation = new LatLng(mLastLocation.getLatitude(), mLastLocation
-                        .getLongitude());
-                //add pin marker at user's location
-                placeMarkerOnMap(currentLocation);
-
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 12));
-            }
-        }
-
-
-
-
-
-
-    }
-
-
-
-
-
-    private void getJsonContent() {
-
-         final WebCamHelper myHelper = new WebCamHelper();
-
-
-        String url = "https://web6.seattle.gov/Travelers/api/Map/Data?zoomId=13&type=2";
-
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    JSONArray jsonArray = response.getJSONArray("Features");
+                    JSONArray array = response.getJSONArray("Features");
+                    for (int i = 0; i < array.length(); i++) {
+                        JSONObject camObj = array.getJSONObject(i);
+                        String camLabel = "";
+                        String camImage = "";
+                        String camOwnership = "";
+                        String camID = "";
 
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject feature = jsonArray.getJSONObject(i);
+                      WebCamHelper camera = new  WebCamHelper(camLabel, camImage, camOwnership);
 
-                        JSONArray camLocation = feature.getJSONArray("PointCoordinate");
-                        //Assign latitude and longtitude IDs
-                        double latitude = camLocation.getDouble(0);
-                        double longtitude = camLocation.getDouble(1);
-                            //Pass the latitude and longtitude to webCamHelper method
-                            new WebCamHelper(latitude, longtitude);
+                       JSONArray camLocation = camObj.getJSONArray("PointCoordinate");
 
-                        for (int j = 0; j < camLocation.length(); j++) {
-                            JSONObject camera = camLocation.getJSONObject(j);
-                            String id = camera.getString("Id");
-                            String camDescription = camera.getString("Description");
-                            String imageURL = camera.getString("ImageUrl");
-                            String type = camera.getString("Type");
-
-
-                            //Pass the data to WebCamHelper method S
-                            new WebCamHelper(id, camDescription, imageURL, type);
+                       myHelper.setLatitude(camLocation.getDouble(0));
+                        myHelper.setLongitude(camLocation.getDouble(1));
 
 
 
-                            final MarkerOptions markerOptions = new MarkerOptions();
-                            LatLng latLng = new LatLng(myHelper.getLatitude(),
-                                    myHelper.getLongitude());
+                        JSONArray camArray = camObj.getJSONArray("Cameras");
+                        for (int j = 0; j < camArray.length(); j++) {
+                            JSONObject cameras = camArray.getJSONObject(j);
 
 
-                            if (type.equals("sdot")) {
-                                imageURL = "http://www.seattle.gov/trafficcams/images/" + imageURL;
-                                markerOptions.position(latLng).title(myHelper.getLabel()).snippet(myHelper.getLabel());
-                            } else {
-                                imageURL = "http://images.wsdot.wa.gov/nw/" + imageURL;
-                                markerOptions.position(latLng).title(myHelper.getLabel()).snippet(myHelper.getLabel());
-                            }
+                            myHelper.setLiveCamID(cameras.getString("Id"));
+                            myHelper.setLabel(cameras.getString("Description"));
+                            myHelper.setType(cameras.getString("Type"));
+                            myHelper.setImageUrl(cameras.getString("ImageUrl"));
 
 
-                            Marker marker = mMap.addMarker(markerOptions);
-                            markers.put(marker.getId(), myHelper.getImage() );
-                            mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+
                         }
-                    }
 
+                        MarkerOptions markerOptions = new MarkerOptions();
+                        LatLng newCamLocation = new LatLng(myHelper.getLatitude(),
+                                myHelper.getLongitude());
+                        if (myHelper.getType().equals(("wsdot"))) {
+                            markerOptions.position(newCamLocation).title(myHelper.getLabel())
+                                    .snippet(myHelper.getLabel())
+                                    .icon(BitmapDescriptorFactory
+                                            .defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                        } else {
+                            markerOptions.position(newCamLocation).title(myHelper.getLabel())
+                                    .snippet(myHelper.getLabel())
+                                    .icon(BitmapDescriptorFactory
+                                            .defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
+                        }
+
+                        mMap.setInfoWindowAdapter(new CustomInfoWindowMap(MapsActivity.this));
+                        Marker m = mMap.addMarker((markerOptions));
+                        m.setTag(myHelper);
+                        mMap.moveCamera(CameraUpdateFactory.newLatLng(newCamLocation));
+
+                        myWebcamList.add(myHelper);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    progressDialog.dismiss();
                 }
+                progressDialog.dismiss();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-
+                Log.e("Volley", error.toString());
+                progressDialog.dismiss();
             }
         });
-       RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(request);
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(jsonObjectRequest);
+
+        return myWebcamList;
     }
 
 
-
-    //To place Marker on map
-    protected void placeMarkerOnMap(LatLng location){
-        //sets the user's current location as for the marker
-        MarkerOptions markerOptions = new MarkerOptions().position(location);
-
-        //Add Custom icon for user current location
-        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource
-                (getResources(), R.mipmap.ic_user_location)));
-
-
-        //Get user current location Address
-        String titleStr = getAddress(location);
-        markerOptions.title(titleStr);
-
-        //Add the marker to the map
-        mMap.addMarker(markerOptions);
-
-    }
-
-
-
-    //Get user current location Address
-    private String getAddress( LatLng latLng ) {
-        // 1
-        Geocoder geocoder = new Geocoder( this );
-        String addressText = "";
-        List<Address> addresses = null;
-        Address address = null;
-        try {
-            // 2
-            addresses = geocoder.getFromLocation( latLng.latitude, latLng.longitude, 1 );
-            // 3
-            if (null != addresses && !addresses.isEmpty()) {
-                address = addresses.get(0);
-                for (int i = 0; i < address.getMaxAddressLineIndex(); i++) {
-                    addressText += (i == 0)?address.getAddressLine(i):("\n" + address.getAddressLine(i));
-                }
-            }
-        } catch (IOException e ) {
+    private void locationPermitted() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_FINE_LOCATION},
+                    LOCATION_PERMISSION_REQUEST_CODE);
+        } else if (mMap != null) {
+            mMap.setMyLocationEnabled(true);
         }
-        return addressText;
     }
 
-
-
+    private void showDefaultLocation() {
+    LatLng Seattle = new LatLng(47.692830562, -122.333);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(Seattle));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(17.0f));
 
 }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case LOCATION_PERMISSION_REQUEST_CODE: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    locationPermitted();
+
+                } else {
+                    showDefaultLocation();
+                }
+                return;
+            }
+
+        }
+    }
+
+    private GoogleMap.OnMyLocationButtonClickListener onMyLocationButtonClickListener =
+            new GoogleMap.OnMyLocationButtonClickListener() {
+                @Override
+                public boolean onMyLocationButtonClick() {
+                    mMap.setMinZoomPreference(6);
+                    return false;
+                }
+            };
+
+    private GoogleMap.OnMyLocationClickListener onMyLocationClickListener =
+            new GoogleMap.OnMyLocationClickListener() {
+                @Override
+                public void onMyLocationClick(@NonNull Location location) {
+
+                    mMap.setMinZoomPreference(6);
+
+                    CircleOptions circleOptions = new CircleOptions();
+                    circleOptions.center(new LatLng(location.getLatitude(),
+                            location.getLongitude()));
+
+                    circleOptions.radius(220);
+                    circleOptions.fillColor(Color.RED);
+                    circleOptions.strokeWidth(6);
+
+                    mMap.addCircle(circleOptions);
+                }
+            };
+
+
+
+//--------------------------------------------
+    public class AddressFinder {
+        private Context context;
+
+        public AddressFinder(Context context) {
+            this.context = context;
+        }
+
+        public List<Address> getFromLocation(Location location) throws IOException {
+            Geocoder geocoder = new Geocoder(context, Locale.getDefault());
+            return geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
+
+
+        }
+    }
+
+}
+
+
+
+
+
