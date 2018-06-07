@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-
-<android.support.constraint.ConstraintLayout
     android:id="@+id/MovieList"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
 
     <android.support.v7.widget.Toolbar
@@ -26,74 +21,72 @@
 
     <TextView
         android:id="@+id/movieListTitle"
-        android:layout_width="208dp"
-        android:layout_height="41dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="256dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
         android:text="@string/movie_list_title"
         android:textAlignment="center"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.583"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/movie_list" />
+        app:layout_constraintTop_toBottomOf="@+id/movie_list_toolbar" />
 
     <TextView
-        android:id="@+id/movie_descrption"
-        android:layout_width="339dp"
-        android:layout_height="347dp"
-        android:layout_marginBottom="16dp"
+        android:id="@+id/movie_director"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:text="@string/movie_description"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="164dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/movie_directors"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/movieListTitle"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <ImageView
-        android:id="@+id/movie_list"
-        android:layout_width="127dp"
-        android:layout_height="80dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
-        android:contentDescription="@string/movie_image"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/movie_list_toolbar"
-        app:srcCompat="@android:color/background_dark" />
+        app:layout_constraintTop_toBottomOf="@+id/movieListTitle" />
 
     <TextView
         android:id="@+id/movie_year"
         android:layout_width="72dp"
         android:layout_height="25dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="216dp"
+        android:layout_marginTop="8dp"
         android:text="@string/year_movies"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.118"
-        app:layout_constraintStart_toEndOf="@+id/movie_list"
-        app:layout_constraintTop_toBottomOf="@+id/movie_list_toolbar" />
-
-    <TextView
-        android:id="@+id/movie_director"
-        android:layout_width="185dp"
-        android:layout_height="28dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/movie_directors"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.783"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/movie_year" />
+        app:layout_constraintTop_toBottomOf="@+id/movie_director" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movie_year">
+
+        <TextView
+            android:id="@+id/movie_descrption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/movie_description"
+            android:textAlignment="textStart"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>
-
-</ScrollView>
