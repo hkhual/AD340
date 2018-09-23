@@ -7,5 +7,11 @@ for my class project.
 
 <img src="Screenshots/Screenshot_1536358863.png" height="300px">
 
+<img src="Screenshots/Map.png" height = "300px">
+
+<img src="Screenshots/LiveCam.png" height = "300px">
+
+<img src="Screenshots/Movies.png" height = "300px">
+
 
 
