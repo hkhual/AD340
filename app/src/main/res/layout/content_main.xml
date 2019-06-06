@@ -19,9 +19,9 @@
             android:id="@+id/textView2"
             android:layout_width="316dp"
             android:layout_height="55dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="64dp"
+            android:layout_marginEnd="8dp"
             android:text="@string/intro_me"
             android:textAlignment="center"
             android:textSize="18sp"
@@ -34,9 +34,9 @@
             android:id="@+id/send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
             android:onClick="sendMessage"
             android:text="@string/sendButton"
             app:layout_constraintEnd_toEndOf="parent"
@@ -61,8 +61,8 @@
 
         <Button
             android:id="@+id/movie"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="138dp"
+            android:layout_height="69dp"
             android:layout_marginStart="88dp"
             android:layout_marginTop="64dp"
             android:onClick="movieInfo"
@@ -72,11 +72,11 @@
 
         <Button
             android:id="@+id/toast1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_width="115dp"
+            android:layout_height="77dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="68dp"
+            android:layout_marginEnd="8dp"
             android:onClick="ButtonClick"
             android:text="@string/toast1Button"
             app:layout_constraintEnd_toEndOf="parent"
@@ -86,11 +86,11 @@
 
         <Button
             android:id="@+id/toast2"
-            android:layout_width="wrap_content"
-            android:layout_height="49dp"
-            android:layout_marginBottom="8dp"
+            android:layout_width="135dp"
+            android:layout_height="79dp"
             android:layout_marginStart="88dp"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:onClick="ButtonClick3"
             android:text="@string/toast2Button"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -100,20 +100,20 @@
 
         <Button
             android:id="@+id/toast3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_width="122dp"
+            android:layout_height="76dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:onClick="buttonClick4"
             android:text="@string/toast3Button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.105"
+            app:layout_constraintHorizontal_bias="0.322"
             app:layout_constraintStart_toEndOf="@+id/toast2"
             app:layout_constraintTop_toBottomOf="@+id/toast1"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.1" />
 
 
     </android.support.constraint.ConstraintLayout>

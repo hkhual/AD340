@@ -1,0 +1,4 @@
+#Thu Jun 06 12:14:22 PDT 2019
+base.0=C\:\\Users\\haukh\\Documents\\GitHub\\AD340\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+path.0=classes.dex
+renamed.0=classes.dex
