@@ -1,19 +1,16 @@
 package com.haukh.home;
 
 
-import android.app.Activity;
-import android.app.Instrumentation;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.runner.AndroidJUnit4;
-import android.support.test.rule.ActivityTestRule;
-import android.app.Instrumentation;
-import android.content.Context;
+import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.rule.ActivityTestRule;
+
 import android.content.Intent;
 import android.preference.PreferenceManager;
-import android.support.test.espresso.Espresso;
-import android.app.Activity;
+import androidx.test.espresso.Espresso;
+
 import android.widget.EditText;
 //import android.support.test.rule.ActivityTestRule;
 
@@ -22,7 +19,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static android.support.test.InstrumentationRegistry.getInstrumentation;
+import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
