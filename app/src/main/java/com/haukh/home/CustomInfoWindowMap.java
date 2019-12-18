@@ -46,7 +46,7 @@ public class CustomInfoWindowMap implements GoogleMap.InfoWindowAdapter {
         String camOwnership = camData.getType();
 
 
-        Picasso.with(view.getContext()).load(imageURL).error(R.mipmap.ic_launcher_round).resize(480, 400).into(camPic,  new MarkerCallback(marker));
+        Picasso.get().load(imageURL).error(R.mipmap.ic_launcher_round).resize(480, 400).into(camPic,  new MarkerCallback(marker));
 
         return view;
     }
@@ -57,10 +57,6 @@ public class CustomInfoWindowMap implements GoogleMap.InfoWindowAdapter {
 
         MarkerCallback(Marker marker) {
             this.marker = marker;
-        }
-
-        @Override
-        public void onError() {
         }
 
         @Override
@@ -76,6 +72,11 @@ public class CustomInfoWindowMap implements GoogleMap.InfoWindowAdapter {
             // refresh if InfoWindowData activity is showing
             marker.hideInfoWindow(); // Need to hide first or else error is thrown
             marker.showInfoWindow();
+        }
+
+        @Override
+        public void onError(Exception e) {
+
         }
     }
 

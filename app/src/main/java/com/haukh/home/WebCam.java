@@ -145,7 +145,7 @@ public class WebCam extends AppCompatActivity {
 
             holder.camLabel.setText(trafficCamDescription);
             holder.camType.setText(trafficCamType);
-            Picasso.with(context).load(imageURL).fit().centerInside().into(holder.imageWebam);
+            Picasso.get().load(imageURL).fit().centerInside().into(holder.imageWebam);
         }
 
 
